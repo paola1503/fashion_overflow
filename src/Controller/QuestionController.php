@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuestionController
+class QuestionController extends AbstractController
 {
     /**
      * @Route("/")
@@ -19,9 +20,16 @@ public function homepage()
      */
 public function show($question)
 {
-    return new Response(sprintf(
-        'Future page to show the question "%s"!',
-        ucwords(str_replace('-',' ',$question))
-    ));
+    $answers=[
+        'Always choose black or white so you can never go wrong',
+        'Choose the same color as your bag',
+        'Better focus on whether they are comfortable or not',
+    ];
+
+    return $this->render('question/show.html.twig',[
+        'question'=>ucwords(str_replace('_',' ',$question)),
+        'answers'=>$answers,
+    ]);
+
 }
 }
