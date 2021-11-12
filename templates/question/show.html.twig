@@ -11,13 +11,13 @@
                     <div class="q-container-show p-4">
                         <div class="row">
                             <div class="col-2 text-center">
-                                <img src="{{ asset('images/cat.webp') }}" width="100" height="100">
+                                <img src="{{ asset('images/cat.webp') }}" width="100" height="100"  alt="cat avatar">
                             </div>
                             <div class="col">
                                 <h1 class="q-title-show">{{ question }}</h1>
                                 <div class="q-display p-3">
                                     <i class="fa fa-quote-left mr-3"></i>
-                                    <p class="d-inline">I usually wear the same pair of shoes but would like to elevate my outfit by wearing shoes that match. Any tips?</p>
+                                    <p class="d-inline">{{ questionText|raw }}</p>
                                     <p class="pt-4"><strong>--Anna</strong></p>
                                 </div>
                             </div>
@@ -39,10 +39,10 @@
                 <li class="mb-4">
                     <div class="d-flex justify-content-center">
                         <div class="mr-2 pt-2">
-                            <img src="{{ asset('images/cat.webp') }}" width="50" height="50">
+                            <img src="{{ asset('images/cat.webp') }}" width="50" height="50" alt="cat avatar">
                         </div>
                         <div class="mr-3 pt-2">
-                            {{ answer }}
+                            {{ answer|striptags|markdown }}
                             <p>-- Leah</p>
                         </div>
                         <div class="vote-arrows flex-fill pt-2 js-vote-arrows" style="min-width: 90px;">
@@ -56,3 +56,4 @@
         </ul>
     </div>
 {% endblock %}
+

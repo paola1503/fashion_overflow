@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
 use Twig\Environment;
 
 class QuestionController extends AbstractController
@@ -27,16 +29,24 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug)
+    public function show($slug, MarkdownParserInterface $markdownParser, CacheInterface $cache)
     {
         $answers = [
-            'Wear shoes that are the same color as your bag!',
+            'Wear shoes that are the `same` color as your bag!',
             'If your outfit has a lot of color, wear black or white shoes; if your outfit is made of neutral colors, wear bold shoes.',
-            'Invest on high-quality shoes and they will go with everything!',
+            'Invest on high-quality shoes and they will go with everything!'
         ];
+
+        $questionText='I usually wear the same pair of shoes but would like to *elevate* my outfit by wearing **shoes that match**. Any tips?';
+        $parsedQuestionText=$cache->get('markdown_'.md5($questionText),function () use ($questionText,$markdownParser){
+            return $markdownParser->transformMarkdown($questionText);
+        });
+
+        dump($cache);
 
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-', ' ', $slug)),
+            'questionText' => $parsedQuestionText,
             'answers' => $answers,
         ]);
     }

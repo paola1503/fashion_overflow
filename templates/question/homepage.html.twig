@@ -19,7 +19,7 @@
                     <div class="q-container p-4">
                         <div class="row">
                             <div class="col-2 text-center">
-                                <img src="{{ asset('images/cat.webp') }}" width="100" height="100">
+                                <img src="{{ asset('images/cat.webp') }}" width="100" height="100"  alt="cat avatar">
                                 <div class="d-block mt-3 vote-arrows">
                                     <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
                                     <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
@@ -47,7 +47,7 @@
                 <div class="q-container p-4">
                     <div class="row">
                         <div class="col-2 text-center">
-                            <img src="{{ asset('images/crown.jpg') }}" width="100" height="100">
+                            <img src="{{ asset('images/crown.jpg') }}" width="100" height="100"  alt="crown avatar">
                             <div class="d-block mt-3 vote-arrows">
                                 <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
                                 <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
@@ -57,13 +57,13 @@
                             <a class="q-title" href="{{ path('app_question_show', { slug: 'long-dress-to-cocktail-party' }) }}"><h2>Long dress to cocktail party?</h2></a>
                             <div class="q-display p-3">
                                 <i class="fa fa-quote-left mr-3"></i>
-                                <p class="d-inline">I've been invited to a cocktail party. Can I wear a long dress if it's informal enough?'</p>
-                                <p class="pt-4"><strong>--Juliet</strong></p>
+                                <p class="d-inline">I've been invited to a cocktail party. Can I wear a long dress if it's informal enough?</p>
+                                <p class="pt-4"><strong>--Jerry</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a class="answer-link" href="{{ path('app_question_show', { slug: 'long-dress-to-cocktail-party' }) }}" style="color: #fff;">
+                <a class="answer-link" href="{{ path('app_question_show', { slug: 'long-dress-to-cocktail-partyl' }) }}" style="color: #fff;">
                     <p class="q-display-response text-center p-3">
                         <i class="fa fa-magic magic-wand"></i> 15 answers
                     </p>
@@ -72,4 +72,6 @@
         </div>
     </div>
 {% endblock %}
+
+
 

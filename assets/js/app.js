@@ -26,3 +26,4 @@ $container.find('a').on('click', function(e) {
         $container.find('.js-vote-total').text(data.votes);
     });
 });
+
