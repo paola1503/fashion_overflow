@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron-img jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Your Questions Answered</h1>
+            <p class="lead">Gals helping each other to become fashion icons</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-question">Ask a Question</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                    <div class="q-container p-4">
+                        <div class="row">
+                            <div class="col-2 text-center">
+                                <img src="{{ asset('images/cat.webp') }}" width="100" height="100">
+                                <div class="d-block mt-3 vote-arrows">
+                                    <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+                                    <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <a class="q-title" href="{{ path('app_question_show', { slug: 'how-to-combine-shoes-with-outfit' }) }}"><h2>How to combine shoes with outfit?</h2></a>
+                                <div class="q-display p-3">
+                                    <i class="fa fa-quote-left mr-3"></i>
+                                    <p class="d-inline">I usually wear the same pair of shoes but would like to elevate my outfit by wearing shoes that match. Any tips?</p>
+                                    <p class="pt-4"><strong>--Anna</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="answer-link" href="{{ path('app_question_show', { slug: 'how-to-combine-shoes-with-outfit' }) }}" style="color: #fff;">
+                        <p class="q-display-response text-center p-3">
+                            <i class="fa fa-magic magic-wand"></i> 6 answers
+                        </p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="q-container p-4">
+                    <div class="row">
+                        <div class="col-2 text-center">
+                            <img src="{{ asset('images/crown.jpg') }}" width="100" height="100">
+                            <div class="d-block mt-3 vote-arrows">
+                                <a class="vote-up" href="#"><i class="far fa-arrow-alt-circle-up"></i></a>
+                                <a class="vote-down" href="#"><i class="far fa-arrow-alt-circle-down"></i></a>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <a class="q-title" href="{{ path('app_question_show', { slug: 'long-dress-to-cocktail-party' }) }}"><h2>Long dress to cocktail party?</h2></a>
+                            <div class="q-display p-3">
+                                <i class="fa fa-quote-left mr-3"></i>
+                                <p class="d-inline">I've been invited to a cocktail party. Can I wear a long dress if it's informal enough?'</p>
+                                <p class="pt-4"><strong>--Juliet</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="answer-link" href="{{ path('app_question_show', { slug: 'long-dress-to-cocktail-party' }) }}" style="color: #fff;">
+                    <p class="q-display-response text-center p-3">
+                        <i class="fa fa-magic magic-wand"></i> 15 answers
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
