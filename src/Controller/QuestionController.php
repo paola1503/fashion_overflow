@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\MarkdownHelper;
 use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownParserInterface $markdownParser, CacheInterface $cache)
+    public function show($slug, MarkdownParserInterface $markdownParser, CacheInterface $cache, MarkdownHelper $markdownHelper)
     {
         $answers = [
             'Wear shoes that are the `same` color as your bag!',
@@ -38,11 +39,7 @@ class QuestionController extends AbstractController
         ];
 
         $questionText='I usually wear the same pair of shoes but would like to *elevate* my outfit by wearing **shoes that match**. Any tips?';
-        $parsedQuestionText=$cache->get('markdown_'.md5($questionText),function () use ($questionText,$markdownParser){
-            return $markdownParser->transformMarkdown($questionText);
-        });
-
-        dump($cache);
+        $parsedQuestionText=$markdownHelper->parse($questionText);
 
         return $this->render('question/show.html.twig', [
             'question' => ucwords(str_replace('-', ' ', $slug)),
