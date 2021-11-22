@@ -1,2 +1,2 @@
 monolog:
-  channels: [markdow]
+  channels: [markdown]
