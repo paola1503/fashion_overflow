@@ -41,6 +41,9 @@ class QuestionController extends AbstractController
         if ($this->isDebug){
             $this->logger->info('We are in debug mode!');
         }
+
+        throw new \Exception('Bad stuff happened!');
+
         $answers = [
             'Wear shoes that are the `same` color as your bag!',
             'If your outfit has a lot of color, wear black or white shoes; if your outfit is made of neutral colors, wear bold shoes.',
