@@ -37,14 +37,11 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper, HubInterface $sentryHub)
+    public function show($slug, MarkdownHelper $markdownHelper)
     {
-        dump($sentryHub->getClient());
         if ($this->isDebug){
             $this->logger->info('We are in debug mode!');
         }
-
-        throw new \Exception('Bad stuff happened!');
 
         $answers = [
             'Wear shoes that are the `same` color as your bag!',
