@@ -22,7 +22,7 @@ public function __construct(LoggerInterface $logger)
     parent::__construct();
 }
 
-    protected function configure():
+    protected function configure(): void
     {
         $this
             ->setDescription(self::$defaultDescription)
