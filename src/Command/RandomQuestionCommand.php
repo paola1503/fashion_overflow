@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,31 +13,52 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class RandomQuestionCommand extends Command
 {
     protected static $defaultName = 'app:random-question';
-    protected static $defaultDescription = 'Add a short description for your command';
 
-    protected function configure(): void
+    private $logger;
+public function __construct(LoggerInterface $logger)
+{
+    $this->logger=$logger;
+
+    parent::__construct();
+}
+
+    protected function configure():
     {
         $this
             ->setDescription(self::$defaultDescription)
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addArgument('yourname', InputArgument::OPTIONAL, 'Your name')
+            ->addOption('caps', null, InputOption::VALUE_NONE, 'Make it uppercase')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $yourname = $input->getArgument('yourname');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        if ($yourname) {
+            $io->note(sprintf('Hello, %s', $yourname));
         }
 
-        if ($input->getOption('option1')) {
-            // ...
+        $questions=[
+            'How do I figure out my Kibbe body type?',
+            'Where can you buy high quality clothes for a low price?',
+            'Can I wear black to a wedding?',
+            'Is it true that you should never combine red and pink?',
+            'What should I wear for a first date at the park?',
+            'How can I make an informal look seem slightly more formal?',
+            'What do you think of the concept of capsule wardrobes?',
+        ];
+
+        $question=$questions[array_rand($questions)];
+
+        if ($input->getOption('caps')) {
+            $question=strtoupper($question);
         }
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $this->logger->info('Loading question: '.$question);
+
+        $io->success($question);
 
         return 0;
     }
