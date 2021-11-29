@@ -76,7 +76,6 @@ EOF
         if (!$question){
             throw $this->createNotFoundException(sprintf('No question found for slug "%s', $slug));
         }
-        dd($question);
 
         $answers = [
             'Wear shoes that are the `same` color as your bag!',
@@ -84,12 +83,8 @@ EOF
             'Invest on high-quality shoes and they will go with everything!'
         ];
 
-        $questionText='I usually wear the same pair of shoes but would like to *elevate* my outfit by wearing **shoes that match**. Any tips?';
-        $parsedQuestionText=$markdownHelper->parse($questionText);
-
         return $this->render('question/show.html.twig', [
-            'question' => ucwords(str_replace('-', ' ', $slug)),
-            'questionText' => $parsedQuestionText,
+            'question' => $question,
             'answers' => $answers,
         ]);
     }
