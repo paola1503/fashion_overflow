@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Controller;
 
 use App\Entity\Question;
@@ -24,16 +25,13 @@ class QuestionController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(Environment $twigEnvironment)
+    public function homepage(EntityManagerInterface $entityManager)
     {
-        /*
-        // fun example of using the Twig service directly!
-        $html = $twigEnvironment->render('question/homepage.html.twig');
-
-        return new Response($html);
-        */
-
-        return $this->render('question/homepage.html.twig');
+        $repository=$entityManager->getRepository(Question::class);
+        $questions=$repository->findAllAskedOrderedByNewest();
+        return $this->render('question/homepage.html.twig',[
+            'questions'=>$questions,
+        ]);
     }
 
     /**
