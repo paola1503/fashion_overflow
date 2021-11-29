@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Question;
 use App\Service\MarkdownHelper;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Sentry\State\HubInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +34,31 @@ class QuestionController extends AbstractController
         */
 
         return $this->render('question/homepage.html.twig');
+    }
+
+    /**
+     * @Route ("/questions/new")
+     */
+
+    public function new(EntityManagerInterface $entityManager)
+    {
+        $question=new Question();
+        $question->setName('White dress for a wedding')
+            ->setSlug('white-dress-for-a-wedding-'.rand(0,1000))
+            ->setQuestion(<<<EOF
+Hi everyone! I've been invited to a wedding and I've found a beautiful dress for the occasion, but I don't know if it's "too white". Its main color is indeed white, but it has golden dots all over it. Do you think I can wear it, or is the bride going to be angry at me?
+EOF
+);
+        if (rand(1,10)>2){
+            $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1,100))));
+        }
+        $entityManager->persist($question);
+        $entityManager->flush();
+        return new Response(sprintf(
+            'Hello! The new question is id #%d, slug %s',
+            $question->getId(),
+            $question->getSlug(),
+        ));
     }
 
     /**
