@@ -50,12 +50,7 @@ public function unpublished(): self
     {
         // see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
         return $this
-            ->afterInstantiate(function(Question $question) {
-                if (!$question->getSlug()){
-                    $slugger=new AsciiSlugger();
-                    $question->setSlug($slugger->slug($question->getName()));
-                }
-            })
+           // ->afterInstantiate(function(Question $question) {})
         ;
     }
 
