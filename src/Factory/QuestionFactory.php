@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Question;
 use App\Repository\QuestionRepository;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -28,23 +29,20 @@ use Zenstruck\Foundry\Proxy;
  */
 final class QuestionFactory extends ModelFactory
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        // TODO inject services if required (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services)
-    }
+public function unpublished(): self
+{
+    return $this->addState(['askedAt'=>null]);
+}
 
     protected function getDefaults(): array
     {
         return [
-            'name' => 'White dress for a wedding',
-            'slug'=>'white-dress-for-a-wedding-'.rand(0,1000),
-        'question'=> <<<EOF
-Hi everyone! I've been invited to a wedding and I've found a beautiful dress for the occasion, but I don't know if it's "too white". Its main color is indeed white, but it has golden dots all over it. Do you think I can wear it, or is the bride going to be angry at me?
-EOF
-        ,
-            'askedAt'=> rand(1,10)>2 ? new \DateTime(sprintf('-%d days', rand(1,100))), null,
+            'name' => self::faker()->realText(50),
+            'question'=>self::faker()->paragraphs(
+                self::faker()->numberBetween(1,4),
+                true
+            ),
+            'askedAt'=> self::faker()->dateTimeBetween('-100 days', '-1 minute'),
             'votes'=> rand(-20,50),];
     }
 
@@ -52,7 +50,12 @@ EOF
     {
         // see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
         return $this
-            // ->afterInstantiate(function(Question $question) {})
+            ->afterInstantiate(function(Question $question) {
+                if (!$question->getSlug()){
+                    $slugger=new AsciiSlugger();
+                    $question->setSlug($slugger->slug($question->getName()));
+                }
+            })
         ;
     }
 
