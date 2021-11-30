@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "knplabs/knp-markdown-bundle": "^1.9",
+        "knplabs/knp-snappy-bundle": "^1.6",
         "knplabs/knp-time-bundle": "^1.17",
         "paragonie/sodium_compat": "^1.17",
         "sensio/framework-extra-bundle": "^6.0",
