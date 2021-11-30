@@ -50,6 +50,7 @@ EOF
         if (rand(1,10)>2){
             $question->setAskedAt(new \DateTime(sprintf('-%d days', rand(1,100))));
         }
+        $question->setVotes(rand(-20,50));
         $entityManager->persist($question);
         $entityManager->flush();
         return new Response(sprintf(
